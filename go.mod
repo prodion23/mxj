@@ -1,7 +1,5 @@
-module github.com/prodion23/mxj/v2
+module github.com/clbanning/mxj/v2
 
 go 1.15
 
-require (
-	github.com/google/go-cmp v0.5.9
-)
+require github.com/google/go-cmp v0.5.9
