@@ -526,6 +526,8 @@ func (mv MapSeq) XmlWriterRaw(xmlWriter io.Writer, rootTag ...string) ([]byte, e
 }
 */
 
+var InvalidXMLRepresentation = errors.New("unable to convert xml map representation back to xml string")
+
 // XmlIndentWriter writes the MapSeq value as pretty XML on the Writer.
 // See MapSeq.Xml() for encoding rules.
 func (mv MapSeq) XmlIndentWriter(xmlWriter io.Writer, prefix, indent string, rootTag ...string) error {
@@ -734,7 +736,7 @@ func mapToXmlSeqIndent(doIndent bool, s *string, key string, value interface{}, 
 			// Check if el.v is of type map[string]interface{}
 			_, ok := el.v.(map[string]interface{})
 			if !ok {
-				return fmt.Errorf("element is not of type map[string]interface{}: %v", el.v)
+				return fmt.Errorf("%w: element is not of type map[string]interface{}: %v", InvalidXMLRepresentation, el.v)
 			}
 		}
 
