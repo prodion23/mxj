@@ -368,12 +368,12 @@ func xmlSeqToMapParser(skey string, a []xml.Attr, p *xml.Decoder, r bool) (map[s
 				// it has no xml.Attr nor xml.CharData.
 				// Empty element content will be  map["etag"]map["#text"]""
 				// after #seq injection - map["etag"]map["#seq"]seq - after return.
+				if n == nil {
+					return nil, fmt.Errorf("%w: Attempt to assign skey to empty map: %v", NilMapSkey, skey)
+				}
 				if len(na) > 0 {
 					n[skey] = na
 				} else {
-					if n == nil {
-						return nil, fmt.Errorf("%w: Attempt to assign skey to empty map: %v", NilMapSkey, skey)
-					}
 					n[skey] = "" // empty element
 				}
 			}
